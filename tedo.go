@@ -55,22 +55,20 @@ var (
 
 func main() {
 
+	// default msg when flag.Parse() -> error
 	flag.Usage = func() {
 		fmt.Fprint(os.Stderr, usage)
 		flag.PrintDefaults()
 	}
-	// fmt.Println("huu1")
+
 	flag.Parse()
-	// fmt.Println("huu2")
 
 	cmd, args, argsLen := flag.Arg(0), flag.Args(), len(flag.Args())
-
-	// fmt.Println("args:",args)
 
 	switch {
 
 	// näytetään kaikki
-	case cmd == "" || cmd == "l" || cmd == "ls" && argsLen == 1:
+case cmd == "" || cmd == "l" || cmd == "ls" || cmd == "list" && argsLen == 1:
 		showTasksInTable(tm.GetAllTasks())
 
 	// lisätään uusi task
@@ -195,7 +193,7 @@ func main() {
 	// case cmd == "listen-reminder-queue" && argsLen == 1:
 	// 	listenReminderQueue()
 
-	case cmd == "h" || cmd == "v":
+case cmd == "h" || cmd == "help" || cmd == "v":
 		// fmt.Fprint(os.Stderr, usage)
 		fmt.Println(usage)
 		return
